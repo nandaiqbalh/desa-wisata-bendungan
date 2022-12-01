@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function ()
 Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     // ADMIN ALL ROUTES
     Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+
+    // profile
+    Route::get('/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+    Route::post('/profile/store', [AdminProfileController::class, 'adminProfileStore'])->name('admin.profile.store');
+
+    // password
+    Route::get('/change/password', [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
+    Route::post('/update/password', [AdminProfileController::class, 'adminUpdatePassword'])->name('admin.update.password');
 }); // END MIDDLEWARE
 
 
 // kata admin setelah sacntum adalah nama guard
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-    return view('dashboard');
+    return view('admin.index');
 })->name('admin.dashboard')->middleware('auth:admin');
 
 // kata web setelah sacntum adalah nama guard
