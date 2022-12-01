@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+// admin:admin -> adalah merupakan middleware
+Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function () {
+    Route::get('/login', [AdminController::class, 'loginForm']);
+    Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
+
+// PROTECT WITH MIDDLEWARE
+Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
+    // ADMIN ALL ROUTES
+    Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+}); // END MIDDLEWARE
+
+
+// kata admin setelah sacntum adalah nama guard
+Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+    return view('dashboard');
+})->name('admin.dashboard')->middleware('auth:admin');
+
+// kata web setelah sacntum adalah nama guard
+Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
