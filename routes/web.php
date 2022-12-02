@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Backend\ProgramCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,10 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     // password
     Route::get('/change/password', [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
     Route::post('/update/password', [AdminProfileController::class, 'adminUpdatePassword'])->name('admin.update.password');
+
+    Route::resource('/program-category', ProgramCategoryController::class);
+    Route::post('/program-category/forceDelete/{id}/', [ProgramCategoryController::class, 'forceDelete'])->name('program-category.force-delete');
+    Route::post('/program-category/restore/{id}/', [ProgramCategoryController::class, 'restore'])->name('program-category.restore');
 }); // END MIDDLEWARE
 
 
