@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Backend\ProgramCategoryController;
+use App\Http\Controllers\Backend\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,10 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::resource('/program-category', ProgramCategoryController::class);
     Route::post('/program-category/forceDelete/{id}/', [ProgramCategoryController::class, 'forceDelete'])->name('program-category.force-delete');
     Route::post('/program-category/restore/{id}/', [ProgramCategoryController::class, 'restore'])->name('program-category.restore');
+
+    Route::resource('/programs', ProgramController::class);
+    Route::get('/inactive/{id}', [ProgramController::class, 'programInactive'])->name('program.inactive');
+    Route::get('/active/{id}', [ProgramController::class, 'programActive'])->name('program.active');
 }); // END MIDDLEWARE
 
 
