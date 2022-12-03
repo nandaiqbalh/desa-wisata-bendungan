@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Backend\ProgramCategoryController;
 use App\Http\Controllers\Backend\ProgramController;
+use App\Http\Controllers\Frontend\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,9 @@ use App\Http\Controllers\Backend\ProgramController;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
 
 // admin:admin -> adalah merupakan middleware
 Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function () {
@@ -51,6 +52,11 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 }); // END MIDDLEWARE
 
 
+Route::get('/', [IndexController::class, 'index'])->name('frontend.index');
+Route::get('/programs', [IndexController::class, 'programs'])->name('frontend.programs');
+Route::get('/programs/{id}', [IndexController::class, 'programsShow'])->name('frontend.programs.show');
+
+
 // kata admin setelah sacntum adalah nama guard
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.index');
@@ -58,5 +64,5 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 
 // kata web setelah sacntum adalah nama guard
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('frontend.index');
 })->name('dashboard');
