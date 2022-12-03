@@ -55,7 +55,7 @@
         <ul>
           <li class="{{($route == 'frontend.index')?'active' : ''}}"><a href="{{url('/')}}">Home</a></li>
           <li class="treeview {{($route == 'frontend.programs')?'active' : ''}}"><a href="{{route('frontend.programs')}}">Programs</a></li>
-          <li class="treeview {{($route == 'frontend.events')?'active' : ''}}"><a href="#">Events</a></li>
+          {{-- <li class="treeview {{($route == 'frontend.events')?'active' : ''}}"><a href="{{route('frontend.events')}}">Events</a></li> --}}
           <li><a href="{{url('/login')}}">Sign In</a></li>
 
         </ul>

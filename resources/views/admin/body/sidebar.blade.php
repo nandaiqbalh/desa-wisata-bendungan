@@ -42,6 +42,19 @@
             </ul>
         </li>
 
+        <li class="treeview {{($prefix == '/admin/event')?'active' : ''}}" >
+            <a href="#">
+              <i data-feather="server"></i>
+              <span>Event</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="{{($route == 'events.index') || ($route == 'events.create') || ($route == 'events.edit') ? 'active' : ''}}"><a href="{{route('events.index')}}"><i class="ti-more"></i>Events</a></li>
+              {{-- <li class="{{($route == 'program-category.index') || ($route == 'program-category.create') || ($route == 'program-category.edit') ? 'active' : ''}}"><a href="{{route('program-category.index')}}"><i class="ti-more"></i>Program Category</a></li> --}}
+            </ul>
+        </li>
       </ul>
     </section>
 
