@@ -56,7 +56,20 @@
           <li class="{{($route == 'frontend.index')?'active' : ''}}"><a href="{{url('/')}}">Home</a></li>
           <li class="treeview {{($route == 'frontend.programs')?'active' : ''}}"><a href="{{route('frontend.programs')}}">Programs</a></li>
           <li class="treeview {{($route == 'frontend.events')?'active' : ''}}"><a href="{{route('frontend.events')}}">Events</a></li>
-          <li><a href="{{url('/login')}}">Sign In</a></li>
+          <li>
+            @if (!Auth::guest())
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Logout
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+
+            @else
+                <a href="{{url('/login')}}">Sign In</a>
+            @endif
+        </li>
 
         </ul>
       </nav><!-- .nav-menu -->
