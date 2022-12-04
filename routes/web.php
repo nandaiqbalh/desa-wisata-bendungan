@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ProgramCategoryController;
 use App\Http\Controllers\Backend\ProgramController;
+use App\Http\Controllers\Frontend\FrontendEventController;
 use App\Http\Controllers\Frontend\IndexController;
 
 /*
@@ -60,6 +61,10 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 Route::get('/', [IndexController::class, 'index'])->name('frontend.index');
 Route::get('/programs', [IndexController::class, 'programs'])->name('frontend.programs');
 Route::get('/programs/{id}', [IndexController::class, 'programsShow'])->name('frontend.programs.show');
+
+Route::get('/events', [FrontendEventController::class, 'index'])->name('frontend.events');
+Route::get('/events/{id}', [FrontendEventController::class, 'eventsShow'])->name('frontend.events.show');
+
 
 
 // kata admin setelah sacntum adalah nama guard
