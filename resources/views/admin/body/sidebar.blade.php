@@ -52,7 +52,7 @@
             </a>
             <ul class="treeview-menu">
                 <li class="{{($route == 'events.index') || ($route == 'events.create') || ($route == 'events.edit') ? 'active' : ''}}"><a href="{{route('events.index')}}"><i class="ti-more"></i>Events</a></li>
-              {{-- <li class="{{($route == 'program-category.index') || ($route == 'program-category.create') || ($route == 'program-category.edit') ? 'active' : ''}}"><a href="{{route('program-category.index')}}"><i class="ti-more"></i>Program Category</a></li> --}}
+              <li class="{{($route == 'participants-be.index') || ($route == 'participants-be.create') || ($route == 'participants-be.edit') ? 'active' : ''}}"><a href="{{route('participants-be.index')}}"><i class="ti-more"></i>Participants</a></li>
             </ul>
         </li>
       </ul>

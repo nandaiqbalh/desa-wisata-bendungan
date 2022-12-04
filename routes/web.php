@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Backend\BackendParticipantController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ProgramCategoryController;
 use App\Http\Controllers\Backend\ProgramController;
@@ -56,6 +57,8 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::resource('/events', EventController::class);
     Route::get('/inactive/{id}', [EventController::class, 'eventInactive'])->name('event.inactive');
     Route::get('/active/{id}', [EventController::class, 'eventActive'])->name('event.active');
+
+    Route::resource('/participants-be', BackendParticipantController::class);
 }); // END MIDDLEWARE
 
 
