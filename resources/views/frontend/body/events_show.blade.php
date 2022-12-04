@@ -23,7 +23,7 @@
 
           <div class="row">
 
-            <div class="col-lg-8 entries">
+            <div class="col-lg-12 entries">
 
               <article class="entry entry-single" data-aos="fade-up">
 
@@ -76,23 +76,6 @@
               </div><!-- End blog comments -->
 
             </div><!-- End blog entries list -->
-
-            <div class="col-lg-4">
-
-              <div class="sidebar" data-aos="fade-left">
-
-                <h3 class="sidebar-title">Search</h3>
-                <div class="sidebar-item search-form">
-                  <form action="">
-                    <input type="text">
-                    <button type="submit"><i class="icofont-search"></i></button>
-                  </form>
-
-                </div><!-- End sidebar search formn-->
-
-              </div><!-- End sidebar -->
-
-            </div><!-- End blog sidebar -->
 
           </div>
 

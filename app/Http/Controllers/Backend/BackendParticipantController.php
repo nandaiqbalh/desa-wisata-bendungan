@@ -16,7 +16,7 @@ class BackendParticipantController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+        $users = DB::select('select * from users');
         $events = DB::table('events')->whereNull('deleted_at')->get();
 
         $participants = Participant::paginate(10);

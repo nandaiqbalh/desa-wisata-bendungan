@@ -22,12 +22,11 @@ class ProgramCategoryController extends Controller
         if ($request->has('search')) {
             $program_categories = DB::select('select * from program_categories where (name LIKE "%' . $request->search . '%")');
             $program_categories_deleted =
-                DB::select('select * from program_categories where deleted_at != NULL'); // returns 5 again
-
+                DB::select('select * from program_categories where deleted_at != NULL');
         } else {
             $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
 
-            $program_categories_deleted = ProgramCategory::onlyTrashed()->get();
+            $program_categories_deleted = DB::table('program_categories')->whereNotNull('deleted_at')->get();
         }
 
         return view('backend.program-categories.index', [
@@ -103,15 +102,6 @@ class ProgramCategoryController extends Controller
      */
     public function update(ProgramCategoryRequest $request, $id)
     {
-        // $programCategory->update($data);
-
-        // DB::update(
-        //     'UPDATE program_categories SET name = :name, description = :description WHERE id = :id',
-        //     [
-        //         'name' => $request->name,
-        //         'description' => $request->description,
-        //     ]
-        // );
 
         DB::table('program_categories')->where('id', $id)->update(array(
             'name' => $request->name,
@@ -148,8 +138,11 @@ class ProgramCategoryController extends Controller
 
     public function restore($id)
     {
-        ProgramCategory::where('id', $id)->withTrashed()->restore();
 
+        DB::update("update program_categories set deleted_at = :deleted_at where id = :id", [
+            'deleted_at' => null,
+            'id' => $id
+        ]);
         $notification = array(
             'message' => 'Succeeded to Restore Program Category',
             'alert-type' => 'success'
@@ -159,7 +152,7 @@ class ProgramCategoryController extends Controller
 
     public function forceDelete($id)
     {
-        ProgramCategory::where('id', $id)->withTrashed()->forceDelete();
+        DB::delete('DELETE FROM program_categories WHERE id = :id', ['id' => $id]);
 
         $notification = array(
             'message' => 'Succeeded to Delete Program Category Permanently',
@@ -167,18 +160,4 @@ class ProgramCategoryController extends Controller
         );
         return redirect()->back()->with($notification);
     }
-
-    // public function search(Request $request)
-    // {
-    //     // menangkap data pencarian
-    //     $query = $request->query;
-
-    //     $program_categories = DB::table('program_categories')
-    //         ->where('name', 'like', "%" . $query . "%")
-    //         ->get();
-
-    //     return view('backend.program-categories.search', [
-    //         'program_categories' => $program_categories,
-    //     ]);
-    // }
 }

@@ -167,9 +167,10 @@ class ProgramController extends Controller
 
     public function programInactive($id)
     {
-        Program::findOrFail($id)->update([
-            'status' => 0,
-        ]);
+        DB::table('programs')
+            ->where('id', $id)
+            ->update(['status' => 0]);
+
         $notification = array(
             'message' => 'Inactivated Progam Success!',
             'alert-type' => 'success'
@@ -180,9 +181,10 @@ class ProgramController extends Controller
 
     public function programActive($id)
     {
-        Program::findOrFail($id)->update([
-            'status' => 1,
-        ]);
+        DB::table('programs')
+            ->where('id', $id)
+            ->update(['status' => 1]);
+
         $notification = array(
             'message' => 'Activated Progam Success!',
             'alert-type' => 'success'

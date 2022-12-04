@@ -20,7 +20,7 @@ class EventController extends Controller
     {
         $events = DB::table('events')->whereNull('deleted_at')->get();
 
-        $events_deleted = Event::onlyTrashed()->get(); // returns 5 again
+        $events_deleted =  DB::table('events')->whereNotNull('deleted_at')->get();
 
         return view('backend.events.index', [
             'events' => $events,
@@ -147,7 +147,7 @@ class EventController extends Controller
             ->update(['deleted_at' => Carbon::now()]);
 
         $notification = array(
-            'message' => 'Delete Program Success!',
+            'message' => 'Delete Event Success!',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -155,7 +155,10 @@ class EventController extends Controller
 
     public function restore($id)
     {
-        Event::where('id', $id)->withTrashed()->restore();
+        DB::update("update events set deleted_at = :deleted_at where id = :id", [
+            'deleted_at' => null,
+            'id' => $id
+        ]);
 
         $notification = array(
             'message' => 'Succeeded to Restore Event',
@@ -166,7 +169,7 @@ class EventController extends Controller
 
     public function forceDelete($id)
     {
-        Event::where('id', $id)->withTrashed()->forceDelete();
+        DB::delete('DELETE FROM events WHERE id = :id', ['id' => $id]);
 
         $notification = array(
             'message' => 'Succeeded to Delete Event Permanently',
@@ -178,9 +181,10 @@ class EventController extends Controller
 
     public function eventInactive($id)
     {
-        Event::findOrFail($id)->update([
-            'status' => 0,
-        ]);
+        DB::table('events')
+            ->where('id', $id)
+            ->update(['status' => 0]);
+
         $notification = array(
             'message' => 'Inactivated Progam Success!',
             'alert-type' => 'success'
@@ -191,9 +195,10 @@ class EventController extends Controller
 
     public function eventActive($id)
     {
-        Event::findOrFail($id)->update([
-            'status' => 1,
-        ]);
+        DB::table('events')
+            ->where('id', $id)
+            ->update(['status' => 1]);
+
         $notification = array(
             'message' => 'Activated Progam Success!',
             'alert-type' => 'success'
