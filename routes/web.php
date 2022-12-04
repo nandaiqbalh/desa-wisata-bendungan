@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ProgramCategoryController;
 use App\Http\Controllers\Backend\ProgramController;
 use App\Http\Controllers\Frontend\FrontendEventController;
+use App\Http\Controllers\Frontend\FrontendParticipantController;
 use App\Http\Controllers\Frontend\IndexController;
 
 /*
@@ -65,6 +66,7 @@ Route::get('/programs/{id}', [IndexController::class, 'programsShow'])->name('fr
 Route::get('/events', [FrontendEventController::class, 'index'])->name('frontend.events');
 Route::get('/events/{id}', [FrontendEventController::class, 'eventsShow'])->name('frontend.events.show');
 
+Route::resource('/participants', FrontendParticipantController::class);
 
 
 // kata admin setelah sacntum adalah nama guard

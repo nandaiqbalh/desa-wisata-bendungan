@@ -49,8 +49,6 @@ class ProgramCategoryController extends Controller
      */
     public function store(ProgramCategoryRequest $request)
     {
-        $data = $request->all();
-
         DB::insert(
             'INSERT INTO program_categories( name, description) VALUES (:name, :description)',
             [

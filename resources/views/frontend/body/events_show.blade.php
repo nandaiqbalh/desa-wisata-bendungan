@@ -54,26 +54,20 @@
                 <div class="reply-form">
                   <h4>Daftar</h4>
                   <p>Ikuti event tersebut dan rasakan keseruannya * </p>
-                  <form action="">
+                  <form action="{{route('participants.store')}}" method="POST">
+                    @csrf
                     <div class="row">
+                        <input name="event_id" type="hidden" value="{{$item->id}}">
+                        <input name="user_id" type="hidden" value="{{Auth::id()}}">
+
                       <div class="col-md-6 form-group">
                         <input name="name" type="text" class="form-control" placeholder="Your Name*">
                       </div>
                       <div class="col-md-6 form-group">
-                        <input name="email" type="text" class="form-control" placeholder="Your Email*">
+                        <input name="phone" type="text" class="form-control" placeholder="Your phone*">
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col form-group">
-                        <input name="website" type="text" class="form-control" placeholder="Your Website">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col form-group">
-                        <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                    <button type="submit" class="btn btn-primary">Daftar</button>
 
                   </form>
 
