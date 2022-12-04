@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\ProgramRequest;
+use App\Models\Backend\Event;
 use App\Models\Backend\Program;
 use App\Models\Backend\ProgramCategory;
 use Illuminate\Http\Request;

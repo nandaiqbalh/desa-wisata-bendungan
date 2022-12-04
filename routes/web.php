@@ -50,13 +50,15 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('/program-category/forceDelete/{id}/', [ProgramCategoryController::class, 'forceDelete'])->name('program-category.force-delete');
     Route::post('/program-category/restore/{id}/', [ProgramCategoryController::class, 'restore'])->name('program-category.restore');
 
-    Route::resource('/programs', ProgramController::class);
+    Route::resource('/programs-be', ProgramController::class);
     Route::get('/inactive/{id}', [ProgramController::class, 'programInactive'])->name('program.inactive');
     Route::get('/active/{id}', [ProgramController::class, 'programActive'])->name('program.active');
 
     Route::resource('/events', EventController::class);
-    Route::get('/inactive/{id}', [EventController::class, 'eventInactive'])->name('event.inactive');
-    Route::get('/active/{id}', [EventController::class, 'eventActive'])->name('event.active');
+    Route::get('/event-inactive/{id}', [EventController::class, 'eventInactive'])->name('event.inactive');
+    Route::get('/event-active/{id}', [EventController::class, 'eventActive'])->name('event.active');
+    Route::post('/events/forceDelete/{id}/', [EventController::class, 'forceDelete'])->name('events.force-delete');
+    Route::post('/events/restore/{id}/', [EventController::class, 'restore'])->name('events.restore');
 
     Route::resource('/participants-be', BackendParticipantController::class);
 }); // END MIDDLEWARE

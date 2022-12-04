@@ -79,17 +79,94 @@
                                         </a>
                                     @endif
 
-                                    <a href="{{ route('events.edit', $item->id) }}" style="margin-bottom: 4px; width: 75px" class="btn btn-warning" title="Edit">
-                                        <i class="fa fa-eye"></i>
+                                    <a href="{{ route('events.edit', $item->id) }}"  style="width: 100px" class="btn btn-success">
+                                        Edit
                                     </a>
                                     <form action="{{ route('events.destroy', $item->id) }}" method="POST" class="inline-block">
                                         {!! method_field('delete') . csrf_field() !!}
+                                        <br>
 
-                                        <button type="submit" style="margin-bottom: 4px; width: 75px" class="btn btn-danger" title="Delete">
-                                            <i class="fa fa-trash"></i>
+                                        <button type="submit" style="width: 100px" class="btn btn-warning">
+                                            Delete
                                         </button>
                                     </form>
 
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                               <td colspan="6" class="border text-center p-5">
+                                   Data Tidak Ditemukan
+                               </td>
+                            </tr>
+                        @endforelse
+                           </tbody>
+
+                         </table>
+                       </div>
+                   </div>
+                   <!-- /.box-body -->
+                 </div>
+                 <!-- /.box -->
+               </div>
+
+               <div class="col-12">
+
+                <div class="box">
+                   <div class="box-header with-border">
+                     <h3 class="box-title">Deleted Event</h3>
+                   </div>
+                   <!-- /.box-header -->
+                   <div class="box-body">
+                       <div class="table-responsive">
+                         <table id="example1" class="table table-bordered table-striped">
+                           <thead>
+                               <tr>
+                                   <th>Id</th>
+                                   <th>Name</th>
+                                   <th>Thumbnail</th>
+                                   <th>Description</th>
+                                   <th>Status</th>
+                                   <th>Action</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+
+                            @php
+                                ($i = 1)
+                            @endphp
+                            @forelse($events_deleted as $item)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <td class="border px-6 py-4 ">{{ $item->name }}</td>
+                                <td class="border px-6 py-4">
+                                    <img src="{{Storage::url($item->thumbnail)}}" alt="Image" width="150px">
+                                </td>
+                                <td class="border px-6 py-4">{{ $item->short_desc }}</td>
+                                <td class="border px-6 py-4">
+                                    @if ($item -> status == 1)
+                                        <span class="badge badge-pill badge-success">Active</span>
+                                    @else
+                                        <span class="badge badge-pill badge-danger">Inactive</span>
+                                    @endif
+                                </td>
+
+                                <td class="border px-6 py- text-center">
+
+                                    @method('POST')
+                                    <form method="POST" action="{{ route('events.restore', $item->id) }}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-info">Restore</button>
+                                    </form>
+
+                                    <form action="{{ route('events.force-delete', $item->id) }}" method="POST" class="inline-block">
+                                        {!! method_field('post') . csrf_field() !!}
+                                        <br>
+
+                                        <button type="submit" style="width: 100px" class="btn btn-danger">
+                                            Delete Permanent
+                                        </button>
+                                    </form>
 
                                 </td>
                             </tr>

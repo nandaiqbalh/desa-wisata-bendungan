@@ -20,8 +20,12 @@ class EventController extends Controller
     {
         $events = DB::table('events')->whereNull('deleted_at')->get();
 
+        $events_deleted = Event::onlyTrashed()->get(); // returns 5 again
+
         return view('backend.events.index', [
             'events' => $events,
+            'events_deleted' => $events_deleted,
+
         ]);
     }
 
@@ -138,7 +142,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('programs')
+        DB::table('events')
             ->where('id', $id)
             ->update(['deleted_at' => Carbon::now()]);
 
@@ -148,6 +152,29 @@ class EventController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    public function restore($id)
+    {
+        Event::where('id', $id)->withTrashed()->restore();
+
+        $notification = array(
+            'message' => 'Succeeded to Restore Event',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function forceDelete($id)
+    {
+        Event::where('id', $id)->withTrashed()->forceDelete();
+
+        $notification = array(
+            'message' => 'Succeeded to Delete Event Permanently',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
 
     public function eventInactive($id)
     {
