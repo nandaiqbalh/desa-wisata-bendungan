@@ -10,7 +10,7 @@
                     <nav>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}"><i class="mdi mdi-home-outline"></i></a></li>
-                            <li class="breadcrumb-item"><a href="{{route('programs-be.index')}}">Program</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('programs.index')}}">Program</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><b>Create Program</b></li>
                         </ol>
                     </nav>
@@ -31,7 +31,7 @@
              <div class="row">
                <div class="col">
 
-                   <form action="{{route('programs-be.store')}}" enctype="multipart/form-data" method="POST">
+                   <form action="{{route('programs.store')}}" enctype="multipart/form-data" method="POST">
                     @csrf
                      <div class="row">
                        <div class="col-6">

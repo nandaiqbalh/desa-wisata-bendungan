@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="icon-box iconbox-pink">
 
-                    <img src="{{Storage::url($item->thumbnail)}}" alt="Image" style="height: 120px; width: 150px">
+                    <img src="{{Storage::url($item->thumbnail)}}" alt="Image">
 
                     <h4><a href="{{ route('frontend.programs.show', $item->id) }}">{{$item -> name}}</a></h4>
                   <span>{{$item -> short_desc}}</span>

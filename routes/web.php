@@ -50,7 +50,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::post('/program-category/forceDelete/{id}/', [ProgramCategoryController::class, 'forceDelete'])->name('program-category.force-delete');
     Route::post('/program-category/restore/{id}/', [ProgramCategoryController::class, 'restore'])->name('program-category.restore');
 
-    Route::resource('/programs-be', ProgramController::class);
+    Route::resource('/programs', ProgramController::class);
     Route::get('/inactive/{id}', [ProgramController::class, 'programInactive'])->name('program.inactive');
     Route::get('/active/{id}', [ProgramController::class, 'programActive'])->name('program.active');
 

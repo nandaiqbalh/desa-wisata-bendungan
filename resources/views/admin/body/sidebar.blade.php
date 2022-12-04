@@ -37,7 +37,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-                <li class="{{($route == 'programs-be.index') || ($route == 'programs-be.create') || ($route == 'programs-be.edit') ? 'active' : ''}}"><a href="{{route('programs-be.index')}}"><i class="ti-more"></i>Program</a></li>
+                <li class="{{($route == 'programs.index') || ($route == 'programs.create') || ($route == 'programs.edit') ? 'active' : ''}}"><a href="{{route('programs.index')}}"><i class="ti-more"></i>Program</a></li>
               <li class="{{($route == 'program-category.index') || ($route == 'program-category.create') || ($route == 'program-category.edit') ? 'active' : ''}}"><a href="{{route('program-category.index')}}"><i class="ti-more"></i>Program Category</a></li>
             </ul>
         </li>

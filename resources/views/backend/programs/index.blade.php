@@ -30,7 +30,7 @@
                    <!-- /.box-header -->
                    <div class="box-body">
                     <div class="mb-10">
-                        <a href="{{ route('programs-be.create') }}" class="btn btn-primary">
+                        <a href="{{ route('programs.create') }}" class="btn btn-primary">
                             + Create Program
                         </a>
                     </div>
@@ -81,10 +81,10 @@
                                         </a>
                                     @endif
 
-                                    <a href="{{ route('programs-be.edit', $item->id) }}" style="margin-bottom: 4px; width: 75px" class="btn btn-warning" title="Edit">
+                                    <a href="{{ route('programs.edit', $item->id) }}" style="margin-bottom: 4px; width: 75px" class="btn btn-warning" title="Edit">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <form action="{{ route('programs-be.destroy', $item->id) }}" method="POST" class="inline-block">
+                                    <form action="{{ route('programs.destroy', $item->id) }}" method="POST" class="inline-block">
                                         {!! method_field('delete') . csrf_field() !!}
 
                                         <button type="submit" style="margin-bottom: 4px; width: 75px" class="btn btn-danger" title="Delete">
