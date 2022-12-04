@@ -16,20 +16,26 @@ class ProgramCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        // $program_categories = ProgramCategory::paginate(10);
+        if ($request->has('search')) {
+            $program_categories = DB::select('select * from program_categories where (name LIKE "%' . $request->search . '%")');
+            $program_categories_deleted =
+                DB::select('select * from program_categories where deleted_at != NULL'); // returns 5 again
 
-        $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
+        } else {
+            $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
 
-        $program_categories_deleted = ProgramCategory::onlyTrashed()->get(); // returns 5 again
-
+            $program_categories_deleted = ProgramCategory::onlyTrashed()->get();
+        }
 
         return view('backend.program-categories.index', [
             'program_categories' => $program_categories,
             'program_categories_deleted' => $program_categories_deleted,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -161,4 +167,18 @@ class ProgramCategoryController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    // public function search(Request $request)
+    // {
+    //     // menangkap data pencarian
+    //     $query = $request->query;
+
+    //     $program_categories = DB::table('program_categories')
+    //         ->where('name', 'like', "%" . $query . "%")
+    //         ->get();
+
+    //     return view('backend.program-categories.search', [
+    //         'program_categories' => $program_categories,
+    //     ]);
+    // }
 }

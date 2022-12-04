@@ -34,6 +34,16 @@
                             + Create Program Category
                         </a>
                     </div>
+
+                    <div class="mb-10">
+                        <form class="d-flex mb-4" role="search" action="{{ route('program-category.index') }}" method="GET">
+                            <input class="form-control" id="search" name="search" value="{{ request('keyword') }}" type="search"
+                               placeholder="Cari Program Category" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+
+                    <div>
                        <div class="table-responsive">
                          <table id="example1" class="table table-bordered table-striped">
                            <thead>
