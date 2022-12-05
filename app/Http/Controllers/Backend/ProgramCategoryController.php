@@ -21,8 +21,7 @@ class ProgramCategoryController extends Controller
     {
         if ($request->has('search')) {
             $program_categories = DB::select('select * from program_categories where (name LIKE "%' . $request->search . '%")');
-            $program_categories_deleted =
-                DB::select('select * from program_categories where deleted_at != NULL');
+            $program_categories_deleted = DB::table('program_categories')->whereNotNull('deleted_at')->get();
         } else {
             $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
 

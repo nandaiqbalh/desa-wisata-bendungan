@@ -16,35 +16,20 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
-
-        $programs = Program::get();
-
-        // $programs = DB::table('programs')->whereNull('deleted_at')->get();
-
-        return view('frontend.index', [
-            'program_categories' => $program_categories,
-            'programs' => $programs,
-        ]);
+        return view('frontend.index', []);
     }
 
     public function programs()
     {
-        $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
-
-        $programs = Program::get();
-
-        // $programs = DB::table('programs')->whereNull('deleted_at')->get();
+        $programs = DB::table('programs')->whereNull('deleted_at')->get();
 
         return view('frontend.body.programs', [
-            'program_categories' => $program_categories,
             'programs' => $programs,
         ]);
     }
 
     public function programsShow(Program $id)
     {
-
         return view('frontend.body.programs_show', [
             'item' => $id,
         ]);

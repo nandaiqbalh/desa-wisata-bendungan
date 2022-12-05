@@ -59,7 +59,7 @@
                                 <td class="border px-6 py-4">
                                     <img src="{{Storage::url($item->thumbnail)}}" alt="Image" width="150px">
                                 </td>
-                                <td class="border px-6 py-4">{{ $item->category->name }}</td>
+                                <td class="border px-6 py-4">{{ $item->category_name }}</td>
                                 <td class="border px-6 py-4">{{ $item->short_desc }}</td>
                                 <td class="border px-6 py-4">
                                     @if ($item -> status == 1)

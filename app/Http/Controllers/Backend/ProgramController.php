@@ -20,14 +20,13 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $program_categories = DB::table('program_categories')->whereNull('deleted_at')->get();
-
-        $programs = Program::paginate(10);
-
-        // $programs = DB::table('programs')->whereNull('deleted_at')->get();
+        $programs = DB::table('programs')
+            ->join('program_categories', 'programs.program_cat_id', 'program_categories.id')
+            ->select('programs.*', 'program_categories.name as category_name')
+            ->whereNull(['programs.deleted_at', 'program_categories.deleted_at'])
+            ->latest()->paginate(10);
 
         return view('backend.programs.index', [
-            'program_categories' => $program_categories,
             'programs' => $programs,
         ]);
     }

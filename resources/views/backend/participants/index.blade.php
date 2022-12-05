@@ -49,8 +49,8 @@
                             <tr>
                                 <th scope="row">{{$item->id}}</th>
                                 <td class="border px-6 py-4 ">{{ $item->name }}</td>
-                                <td class="border px-6 py-4">{{ $item->user->email }}</td>
-                                <td class="border px-6 py-4">{{ $item->event->name }}</td>
+                                <td class="border px-6 py-4">{{ $item->email }}</td>
+                                <td class="border px-6 py-4">{{ $item->event_name }}</td>
                                 <td class="border px-6 py-4">{{ $item->phone }}</td>
 
                                 </td>

@@ -16,14 +16,15 @@ class BackendParticipantController extends Controller
      */
     public function index()
     {
-        $users = DB::select('select * from users');
-        $events = DB::table('events')->whereNull('deleted_at')->get();
 
-        $participants = Participant::paginate(10);
+        $participants = DB::table('participants')
+            ->join('users', 'participants.user_id', 'users.id')
+            ->join('events', 'participants.event_id', 'events.id')
+            ->select('participants.*', 'users.email', 'events.name as event_name')
+            ->whereNull(['participants.deleted_at', 'events.deleted_at'])
+            ->latest()->paginate(10);
 
         return view('backend.participants.index', [
-            'users' => $users,
-            'events' => $events,
             'participants' => $participants,
         ]);
     }
