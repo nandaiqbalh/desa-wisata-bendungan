@@ -18,13 +18,23 @@ class ProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programs = DB::table('programs')
-            ->join('program_categories', 'programs.program_cat_id', 'program_categories.id')
-            ->select('programs.*', 'program_categories.name as category_name')
-            ->whereNull(['programs.deleted_at', 'program_categories.deleted_at'])
-            ->latest()->paginate(10);
+        if ($request->has('search')) {
+            $programs = DB::table('programs')
+                ->join('program_categories', 'programs.program_cat_id', 'program_categories.id')
+                ->select('programs.*', 'program_categories.name as category_name')
+                ->where('programs.name', 'like', '%' . $request->search . '%')
+                ->orWhere('program_categories.name', 'like', '%' . $request->search . '%')
+                ->whereNull(['programs.deleted_at', 'program_categories.deleted_at'])
+                ->latest()->paginate(10);
+        } else {
+            $programs = DB::table('programs')
+                ->join('program_categories', 'programs.program_cat_id', 'program_categories.id')
+                ->select('programs.*', 'program_categories.name as category_name')
+                ->whereNull(['programs.deleted_at', 'program_categories.deleted_at'])
+                ->latest()->paginate(10);
+        }
 
         return view('backend.programs.index', [
             'programs' => $programs,
